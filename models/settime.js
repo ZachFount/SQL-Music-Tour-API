@@ -4,26 +4,35 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, Sequelize, DataTypes) => {
   class SetTime extends Model {
+    static associate({ Band, Event, Stage}) {
+      SetTime.belongsTo(Band, {
+        foreignKey: 'band_id',
+        as: 'band'
+      })
 
-    static associate(models) {
+      SetTime.belongsTo(Event, {
+        foreignKey: 'event_id',
+        as: 'event'
+      })
+
+      SetTime.belongsTo(Stage, {
+        foreignKey: 'stage_id',
+        as: 'stage'
+      })
     }
   }
   SetTime.init({
     set_time_id: {
-      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      timestamps: false,
       type: Sequelize.INTEGER
     },
-    startTime: {
+    start_time: {
       allowNull: false,
-      timestamps: false,
       type: Sequelize.DATE
     },
-    endTime: {
+    end_time: {
       allowNull: false,
-      timestamps: false,
       type: Sequelize.DATE
     }}, {
       sequelize,

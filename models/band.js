@@ -4,8 +4,17 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Band extends Model {
+   
+    static associate({ MeetGreet, SetTime }) {
+      Band.hasMany(MeetGreet, {
+        foreignKey : 'band_id',
+        as: 'meet_greets'
+      })
 
-    static associate(models) {
+      Band.hasMany(SetTime, {
+        foreignKey: 'band_id',
+        as: 'set_times'
+      })
     }
   }
   Band.init({
